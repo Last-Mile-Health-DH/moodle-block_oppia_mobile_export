@@ -58,7 +58,8 @@ class MobileActivityFeedback extends MobileActivity {
     private function generate_md5($feedback, $quizjson) {
         $md5postfix = "";
         foreach ($this->configarray as $key => $value) {
-            $md5postfix .= $key[0].((string) $value);
+            // $md5postfix .= $key[0].((string) $value);
+            $md5postfix .= $key[0];
         }
         $contents = json_encode($quizjson);
         $this->md5 = md5( $feedback->intro . remove_ids_from_json($contents) . $md5postfix);
