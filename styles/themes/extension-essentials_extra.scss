@@ -39,6 +39,12 @@ h3, h4 {
     font-size: 110%;
 }
 
+h4 {
+    color: $theme-extra-color;
+    background-color: #d9d9d9;
+
+}
+
 div.activity, div.case-study, div.subsession {
     color: $theme-extra-color;
     background-color: #d9d9d9;
