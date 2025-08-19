@@ -154,7 +154,12 @@ function get_section_title($section) {
 
 function extract_langs($content, $asjson, $striptags, $stripbasictags) {
     global $MOBILELANGS, $CURRENTLANG, $DEFAULTLANG;
-    preg_match_all(REGEX_LANGS, $content, $langstmp, PREG_OFFSET_CAPTURE);
+    /*Ei - added check to ensure $content is set.
+    	preg_match_all(REGEX_LANGS, $content, $langstmp, PREG_OFFSET_CAPTURE);
+     */
+    if ($content) {
+	    preg_match_all(REGEX_LANGS, $content, $langstmp, PREG_OFFSET_CAPTURE);
+    }
     $templangs = array();
     if (isset($langstmp['langs']) && count($langstmp['langs']) > 0) {
         for ($i = 0; $i < count($langstmp['langs']); $i++) {

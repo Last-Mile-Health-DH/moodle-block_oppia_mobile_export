@@ -14,6 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+use mod_quiz\quiz_settings;
+
+global $CFG, $USER;
+
 class MobileActivityQuiz extends MobileActivity {
 
     private $supportedtypes = array('multichoice', 'match', 'truefalse', 'description', 'shortanswer', 'numerical');
@@ -71,11 +75,17 @@ class MobileActivityQuiz extends MobileActivity {
     }
 
     public function preprocess() {
-        global $DB, $USER;
+        global $DB, $USER, $CFG;
         $cm = get_coursemodule_from_id('quiz', $this->id);
 
-        $quizobj = quiz::create($cm->instance, $USER->id);
-        if (!$quizobj->has_questions()) {
+	require_once($CFG->dirroot . '/mod/quiz/locallib.php');
+
+	/* Deprecated class - Eseosa I
+	 * $quizobj = quiz::create($cm->instance, $USER->id);
+	 */
+	
+	$quizobj = quiz_settings::create($cm->instance, $USER->id);
+	if (!$quizobj->has_questions()) {
             $this->noquestions = 0;
             $this->isvalid = false;
             return;
@@ -128,8 +138,12 @@ class MobileActivityQuiz extends MobileActivity {
 
         $cm = get_coursemodule_from_id('quiz', $this->id);
         $quiz = $DB->get_record('quiz', array('id' => $cm->instance), '*', MUST_EXIST);
-        $quizobj = quiz::create($cm->instance, $USER->id);
-        $quizobj->preload_questions();
+	/* Deprecated function - Eseosa I
+	 * $quizobj = quiz::create($cm->instance, $USER->id);
+	 */
+	$quizobj = quiz_settings::create($cm->instance, $USER->id);
+
+	$quizobj->preload_questions();
         $quizobj->load_questions();
         $qs = $quizobj->get_questions();
 
