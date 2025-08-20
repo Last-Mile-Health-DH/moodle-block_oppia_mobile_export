@@ -124,10 +124,10 @@ function populate_digests_for_course($course, $courseid, $serverid, $digeststopr
         if ($sect->section == 0) {
             $sectiontitle = "Intro";
         } else {
-            $sectiontitle = strip_tags($sect->summary);
+            $sectiontitle = strip_tags($sect->summary ?? '');
             // If the course has no summary, we try to use the section name.
             if ($sectiontitle == "") {
-                $sectiontitle = strip_tags($sect->name);
+                $sectiontitle = strip_tags($sect->name ?? '');
             }
         }
 
