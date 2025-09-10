@@ -247,15 +247,8 @@ class MobileActivityPage extends MobileActivity {
         global $CFG;
 
         $contentstoparse = '<div>'.$content.'</div>'; // We add a fake root element to avoid problems with libxml.
-	/* Ei - deprecated function
-	 * $contentstoparse = mb_convert_encoding($contentstoparse, 'HTML-ENTITIES', 'UTF-8');
-	 */
-	$contentstoparse = htmlentities($contentstoparse ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-
-	/* Ei - deprecated function 
-	 * $contentstoparse = utf8_decode($contentstoparse);
-	*/
-	$contentstoparse = mb_convert_encoding($contentstoparse ?? '', 'ISO-8859-1', 'UTF-8');
+        $contentstoparse = mb_convert_encoding($contentstoparse, 'HTML-ENTITIES', 'UTF-8');
+        $contentstoparse = utf8_decode($contentstoparse);
 
         $html = new DOMDocument('1.0', 'utf-8');
         libxml_use_internal_errors(true);
