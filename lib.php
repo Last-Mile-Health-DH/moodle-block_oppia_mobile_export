@@ -569,8 +569,10 @@ function create_dom_element_from_template($doc, $templatename, $params) {
     global $OUTPUT;
 
     $elemhtml = $OUTPUT->render_from_template($templatename, $params);
+    libxml_use_internal_errors(true);
     $dom = new DOMDocument();
     $dom->loadHTML($elemhtml, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    libxml_clear_errors();
     return $doc->importNode($dom->documentElement, true);
 }
 
