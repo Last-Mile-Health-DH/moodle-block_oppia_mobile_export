@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-	$('[name=reveal]').each(function(i){
+	$('.reveal').each(function(i){
 		var revealSection = $(this).addClass('showmore revealed');
 		var target = $('#answer'+$(this).attr('id'));
 
