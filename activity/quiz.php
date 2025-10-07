@@ -318,7 +318,7 @@ class MobileActivityQuiz extends MobileActivity {
             }
 
             # add options for correct/partial/incorrect
-            if ($q->options->correctfeedback != "") {
+            if (isset($q->options->correctfeedback) && $q->options->correctfeedback != "") {
                 $feedbackjson = extract_langs($q->options->correctfeedback, true, !$this->keephtml, false);
                 $questionprops["correctfeedback"] = json_decode($feedbackjson);
                 if($this->quizhtmlfiles){
@@ -336,7 +336,7 @@ class MobileActivityQuiz extends MobileActivity {
                     $questionprops["correctfeedbackhtmlfile"] = json_encode($temp_correctfeedback_langs);
                 }
             }
-            if ($q->options->partiallycorrectfeedback != "") {
+            if (isset($q->options->partiallycorrectfeedback) && $q->options->partiallycorrectfeedback != "") {
                 $feedbackjson = extract_langs($q->options->partiallycorrectfeedback, true, !$this->keephtml, false);
                 $questionprops["partiallycorrectfeedback"] = json_decode($feedbackjson);
                 if($this->quizhtmlfiles){
@@ -354,7 +354,7 @@ class MobileActivityQuiz extends MobileActivity {
                     $questionprops["partiallycorrectfeedbackhtmlfile"] = json_encode($temp_partiallycorrectfeedback_langs);
                 }
             }
-            if ($q->options->incorrectfeedback != "") {
+            if (isset($q->options->incorrectfeedback) && $q->options->incorrectfeedback != "") {
                 $feedbackjson = extract_langs($q->options->incorrectfeedback, true, !$this->keephtml, false);
                 $questionprops["incorrectfeedback"] = json_decode($feedbackjson);
                 if($this->quizhtmlfiles){
