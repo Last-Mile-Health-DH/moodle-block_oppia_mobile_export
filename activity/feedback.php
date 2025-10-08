@@ -268,7 +268,11 @@ class MobileActivityFeedback extends MobileActivity {
             $quizjson['props']['password'] = $this->password;
         }
 
-        $this->content = json_encode($quizjson);
+        $this->content = str_replace(']]>', ']]]]><![CDATA[>', json_encode($quizjson));
+
+        // Add logging
+        error_log('[OppiaMobileExport][feedback.php] Generated JSON: ' . $this->content);
+        
     }
 
     public function get_xml($mod, $counter, &$node, &$xmldoc, $activity) {
