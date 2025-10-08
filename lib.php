@@ -93,14 +93,17 @@ function remove_oppiaconfig_if_exists($modid, $name, $servid="default") {
 
 function get_oppiaconfig($modid, $name, $default, $usenonservervalue, $servid="default") {
     global $DB;
-    $record = $DB->get_record_select(OPPIA_CONFIG_TABLE, "modid=$modid and `name`='$name' and serverid='$servid'");
-    if ($record) {
+    $records = $DB->get_records_select(OPPIA_CONFIG_TABLE, "modid=$modid and `name`='$name' and serverid='$servid'");
+    if ($records) {
+        // Use the first record found (reset returns the first element of the array)
+        $record = reset($records);
         return $record->value;
     } else {
         if ($usenonservervalue) {
             // Try if there is a non-server value saved.
-            $record = $DB->get_record(OPPIA_CONFIG_TABLE, array('modid' => $modid, 'name' => $name));
-            if ($record) {
+            $records = $DB->get_records(OPPIA_CONFIG_TABLE, array('modid' => $modid, 'name' => $name));
+            if ($records) {
+                $record = reset($records);
                 return $record->value;
             }
         }
